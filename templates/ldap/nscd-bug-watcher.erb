@@ -1,0 +1,2 @@
+# Puppet generated. Do not modify.
+0,15,30,45 * * * * root lsof -p `cat /var/run/nscd/nscd.pid` 2>&1 | fgrep -c socket | grep -vq "^1$" && kill -9 `cat /var/run/nscd/nscd.pid` && /etc/init.d/nscd start

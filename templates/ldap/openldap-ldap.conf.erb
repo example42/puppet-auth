@@ -1,0 +1,8 @@
+# File Managed by Puppet
+URI <% scope.lookupvar('auth::ldap_servers').each do |ldapuri| -%>ldap://<%= ldapuri -%> <% end %>
+BASE <%= scope.lookupvar('auth::ldap_basedn') %>
+<% if scope.lookupvar('auth::bool_ldap_ssl') -%>
+TLS_CACERT <%= scope.lookupvar('auth::ldap_cacert_path') %>
+TLS_REQCERT never
+# TLS_REQCERT demand
+<% end -%>
