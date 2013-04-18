@@ -1,35 +1,27 @@
-#
-#	puppet generated file -- your changes will be overwritten
+# File Managed by Puppet
 #
 [domain/default]
 
-ldap_id_use_start_tls = True
 cache_credentials = False
-ldap_search_base = dc=seat,dc=it
+ldap_search_base = <%= scope.lookupvar('auth::ldap_basedn') %>
 id_provider = ldap
 auth_provider = ldap
 chpass_provider = ldap
-ldap_uri = ldap://ldproxy.pgol.com/
+ldap_uri = <% scope.lookupvar('auth::ldap_servers').each do |ldap| %>ldap://<%= ldap -%> <% end %>
+<% if scope.lookupvar('auth::bool_ldap_ssl') -%>
+ldap_id_use_start_tls = True
 ldap_tls_cacertdir = /etc/openldap
 ldap_tls_reqcert = never
+<% end -%>
 
 [sssd]
 config_file_version = 2
-
-# Number of times services should attempt to reconnect in the
-# event of a crash or restart before they give up
 reconnection_retries = 3
-
-# If a back end is particularly slow you can raise this timeout here
 sbus_timeout = 30
 services = nss, pam
-
 domains = default
-[nss]
 
-# The following prevents SSSD from searching for the root user/group in
-# all domains (you can add here a comma-separated list of system accounts that
-# are always going to be /etc/passwd users, or that you want to filter out).
+[nss]
 filter_groups = root
 filter_users = root
 reconnection_retries = 3

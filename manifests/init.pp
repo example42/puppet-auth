@@ -11,8 +11,8 @@ class auth (
   $bool_ldap_ssl = any2bool($ldap_ssl)
   $ldap_nslcd_uid = 'nslcd'
   $ldap_nslcd_gid = $::operatingsystem ? {
-    /(?i:RedHat/Centos)/ => 'ldap',
-    default              => 'nslcd',
+    /(redhat|centos)/ => 'ldap',
+    default           => 'nslcd',
   }
 
   include "auth::${auth}"
