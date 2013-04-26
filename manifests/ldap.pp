@@ -17,7 +17,7 @@ class auth::ldap ( ) {
       }
     }     
     Ubuntu: {
-      case $::lsbmajdistrelease {
+      case $::lsbdistrelease {
         8.04:    { include auth::ldap::debian5 }
         10.04:   { include auth::ldap::ubuntu1204 }
         12.04:   { include auth::ldap::ubuntu1204 }

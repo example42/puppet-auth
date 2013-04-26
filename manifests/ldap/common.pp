@@ -21,11 +21,11 @@ class auth::ldap::common {
 
   # NSS CONFIG FILE
   $nsswitch_conf_template = $::operatingsystem ? {
-    /(redhat|centos)/ => $::lsbmajdistrelease ? {
+    /(?i:redhat|centos)/ => $::lsbmajdistrelease ? {
       6       => 'auth/ldap/nsswitch.conf.redhat6.erb',
       default => 'auth/ldap/nsswitch.conf.erb',
     },
-    default           => present,
+    default           => 'auth/ldap/nsswitch.conf.erb',
   }
   file { 'nsswitch.conf':
     ensure  => present,
@@ -38,7 +38,7 @@ class auth::ldap::common {
 
   # NSCD CONFIG FILE AND HARD PATCH
   $nscd_conf_ensure = $::operatingsystem ? {
-    /(redhat|centos)/ => $::lsbmajdistrelease ? {
+    /(?i:redhat|centos)/ => $::lsbmajdistrelease ? {
       6       => absent,
       default => present,
     },
@@ -63,8 +63,8 @@ class auth::ldap::common {
 
   # OPENLDAP CLIENT CONFIG FILE
   $openldap_ldap_conf_path = $::operatingsystem ? {
-    /(redhat|centos)/  => '/etc/openldap/ldap.conf',
-    /(debian|ubuntu)/  => '/etc/ldap/ldap.conf',
+    /(?i:redhat|centos)/  => '/etc/openldap/ldap.conf',
+    /(?i:debian|ubuntu)/  => '/etc/ldap/ldap.conf',
   }
   file { 'openldap_ldap.conf':
     ensure  => present,
@@ -77,8 +77,8 @@ class auth::ldap::common {
 
   # CACERT FILE, IF PROVIDED
   $openldap_cacert_path = $::operatingsystem ? {
-    /(redhat|centos)/  => '/etc/openldap/cacert.pem',
-    /(debian|ubuntu)/  => '/etc/ldap/cacert.pem',
+    /(?i:redhat|centos)/  => '/etc/openldap/cacert.pem',
+    /(?i:debian|ubuntu)/  => '/etc/ldap/cacert.pem',
   }
   if $auth::ldap_cacert_source != '' {
     file { 'ldap_cacert':

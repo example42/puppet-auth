@@ -1,5 +1,5 @@
 class auth (
-  $auth,
+  $mode,
   $ldap_servers       = '',
   $ldap_basedn        = '',
   $ldap_ssl           = '',
@@ -15,6 +15,6 @@ class auth (
     default           => 'nslcd',
   }
 
-  include "auth::${auth}"
+  include "auth::${mode}"
 
 }
