@@ -3,7 +3,7 @@ class auth (
   $ldap_servers       = '',
   $ldap_basedn        = '',
   $ldap_ssl           = '',
-  $ldap_cacert_path   = '',
+  $ldap_cacert_path   = '/etc/ldap/cacert.pem',
   $ldap_cacert_source = '',
   $ldap_servers       = ''
   ) {
