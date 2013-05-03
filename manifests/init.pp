@@ -3,7 +3,7 @@ class auth (
   $ldap_servers       = '',
   $ldap_basedn        = '',
   $ldap_ssl           = '',
-  $ldap_cacert_path   = '/etc/ldap/cacert.pem',
+  $ldap_cacert_path   = '',
   $ldap_cacert_source = '',
   $ldap_servers       = ''
   ) {
@@ -14,7 +14,13 @@ class auth (
     /(redhat|centos)/ => 'ldap',
     default           => 'nslcd',
   }
-
+  $real_ldap_cacert_path = $ldap_cacert_path ? {
+    ''      => $::operatingsystem ? {
+      /(?i:redhat|centos)/  => '/etc/openldap/cacert.pem',
+      /(?i:debian|ubuntu)/  => '/etc/ldap/cacert.pem',
+    },
+    default => $ldap_cacert_path,
+  }
   include "auth::${mode}"
 
 }

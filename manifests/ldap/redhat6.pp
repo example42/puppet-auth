@@ -16,8 +16,8 @@ class auth::ldap::redhat6 {
 
   file { 'sssd.conf':
     ensure  => present,
-    path    => '/etc/ssd/sssd.conf',
-    mode    => '0644',
+    path    => '/etc/sssd/sssd.conf',
+    mode    => '0600',
     owner   => 'root',
     group   => 'root',
     content => template('auth/ldap/sssd.conf.erb'),
@@ -29,13 +29,6 @@ class auth::ldap::redhat6 {
     enable     => true,
     hasrestart => true,
     subscribe  => File['sssd.conf'],
-  }
-
-  # PAM MANAGEMENT
-  if $::operatingsystem == 'CentOS' {
-    pam::config { 'sshd':
-      source => 'puppet:///modules/auth/ldap/pam/sshd-centos',
-    }
   }
 
 }

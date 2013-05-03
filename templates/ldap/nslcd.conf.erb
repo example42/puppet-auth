@@ -21,7 +21,7 @@ base <%= scope.lookupvar('auth::ldap_basedn') %>
 # SSL options
 ssl start_tls
 tls_reqcert never
-tls_cacertfile <%= scope.lookupvar('auth::ldap_cacert_path') %>
+tls_cacertfile <%= scope.lookupvar('auth::real_ldap_cacert_path') %>
 timelimit 60
 
 # The search scope.

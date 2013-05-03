@@ -24,7 +24,7 @@ class auth::ldap ( ) {
         default: { fail("Unsupported/Untested platform: ${::operatingsystem} - ${::lsbmajdistrelease} ") }
       }
     }
-    RedHat,Centos: {
+    RedHat,CentOS: {
       case $::lsbmajdistrelease {
         5:       { include auth::ldap::redhat5 }
         6:       { include auth::ldap::redhat6 }

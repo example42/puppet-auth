@@ -4,7 +4,7 @@ base <%= scope.lookupvar('auth::ldap_basedn') %>
 
 <% if scope.lookupvar('auth::bool_ldap_ssl') -%>
 ssl start_tls
-tls_cacertfile <%= scope.lookupvar('auth::ldap_cacert_path') %>
+tls_cacertfile <%= scope.lookupvar('auth::real_ldap_cacert_path') %>
 tls_checkpeer no
 <% end -%>
 
