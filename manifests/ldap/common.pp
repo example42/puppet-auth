@@ -75,7 +75,7 @@ class auth::ldap::common {
     content => template('auth/ldap/openldap-ldap.conf.erb'),
   }
 
-  # CACERT FILE, IF PROVIDED
+  # CACERT FILE, IF PROVIDED
   $openldap_cacert_path = $::operatingsystem ? {
     /(?i:redhat|centos)/  => '/etc/openldap/cacert.pem',
     /(?i:debian|ubuntu)/  => '/etc/ldap/cacert.pem',
