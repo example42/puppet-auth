@@ -21,6 +21,7 @@ class auth::ldap ( ) {
         8.04:    { include auth::ldap::debian5 }
         10.04:   { include auth::ldap::ubuntu1204 }
         12.04:   { include auth::ldap::ubuntu1204 }
+        13.04:   { include auth::ldap::ubuntu1204 }
         default: { fail("Unsupported/Untested platform: ${::operatingsystem} - ${::lsbmajdistrelease} ") }
       }
     }
